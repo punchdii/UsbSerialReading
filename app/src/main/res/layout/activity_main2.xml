@@ -6,9 +6,89 @@
     android:padding="16dp">
 
     <LinearLayout
-        android:id="@+id/device_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical" />
+        android:orientation="vertical">
+
+        <!-- Existing Device Container -->
+        <LinearLayout
+            android:id="@+id/device_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" />
+
+        <!-- New Execution Log TextViews -->
+        <TextView
+            android:id="@+id/log_step1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text=""
+            android:textSize="16sp"
+            android:paddingTop="10dp"
+            android:textColor="#000000" />
+
+        <TextView
+            android:id="@+id/log_step2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text=""
+            android:textSize="16sp"
+            android:paddingTop="4dp"
+            android:textColor="#000000" />
+
+        <TextView
+            android:id="@+id/log_step3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text=""
+            android:textSize="16sp"
+            android:paddingTop="4dp"
+            android:textColor="#000000" />
+
+        <TextView
+            android:id="@+id/log_step4"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text=""
+            android:textSize="16sp"
+            android:paddingTop="4dp"
+            android:textColor="#000000" />
+
+        <TextView
+            android:id="@+id/log_step5"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text=""
+            android:textSize="16sp"
+            android:paddingTop="4dp"
+            android:textColor="#000000" />
+
+        <TextView
+            android:id="@+id/log_step6"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text=""
+            android:textSize="16sp"
+            android:paddingTop="4dp"
+            android:textColor="#000000" />
+
+        <TextView
+            android:id="@+id/log_step7"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text=""
+            android:textSize="16sp"
+            android:paddingTop="4dp"
+            android:textColor="#000000" />
+
+        <TextView
+            android:id="@+id/log_received"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text=""
+            android:textSize="16sp"
+            android:paddingTop="4dp"
+            android:textColor="#000000" />
+    </LinearLayout>
 
 </ScrollView>
