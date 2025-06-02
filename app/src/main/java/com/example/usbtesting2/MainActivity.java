@@ -125,6 +125,9 @@ public class MainActivity extends AppCompatActivity {
             }
             Toast.makeText(this, "✅ Connected! Waiting for data...", Toast.LENGTH_SHORT).show();
 
+            //All port and driver setted up successfully
+            UsbSessionManager.usbSerialPort = serialPort;
+            UsbSessionManager.connection = connection;
 
             //start the foregroudn service
             Context context = getApplicationContext();
