@@ -40,5 +40,6 @@ dependencies {
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)
-//    implementation("com.github.mik3y:usb-serial-for-android:3.9.0")
+
+    implementation(libs.usb.serial.for1.android)
 }
