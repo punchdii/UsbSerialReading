@@ -41,6 +41,7 @@ public class MainActivity extends AppCompatActivity {
     private LinearLayout deviceContainer;
     private UsbManager usbManager;
     private UsbSerialPort serialPort;
+    private KioskManager kioskManager;
 
     private PendingIntent createPermissionIntent() {
         Log.d(TAG, "Creating permission intent");
@@ -254,6 +255,15 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        // Initialize KioskManager
+        kioskManager = new KioskManager(this);
+        
+        // Setup kiosk mode if device owner
+        if (kioskManager.isDeviceOwner()) {
+            kioskManager.enableKioskMode(this);
+            kioskManager.setupSystemUI(this);
+        }
+
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(android.R.id.content), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
@@ -383,6 +393,11 @@ public class MainActivity extends AppCompatActivity {
             Log.w(TAG, "Error unregistering receiver: " + e.getMessage());
         }
 
+        // Disable kiosk mode if it was enabled
+        if (kioskManager.isDeviceOwner()) {
+            kioskManager.disableKioskMode(this);
+        }
+        
         Log.d(TAG, "=== onDestroy completed ===");
     }
 }
