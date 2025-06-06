@@ -2,18 +2,22 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <!-- USB RELATED STUFFFF idk why its here but its needed-->
-    <uses-feature android:name="android.hardware.usb.accessory" android:required="false" />
-    <uses-feature android:name="android.hardware.usb.host" android:required="false" />    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
-    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_CONNECTED_DEVICE" />
-    <uses-permission android:name="android.hardware.usb.accessory" />
-    <uses-permission android:name="android.hardware.usb.host" />
-    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+    <!-- Boot and USB permissions -->
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <uses-permission android:name="android.permission.QUICKBOOT_POWERON" />
+    <uses-feature android:name="android.hardware.usb.host" android:required="true" />
+    <uses-permission android:name="android.hardware.usb.host" />
+    <uses-permission android:name="android.hardware.usb.accessory" />
+    <uses-feature android:name="android.hardware.usb.accessory" android:required="false" />
+    
+    <!-- Notification and service permissions -->
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_CONNECTED_DEVICE" />
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+    
+    <!-- Admin and system permissions -->
     <uses-permission android:name="android.permission.MANAGE_DEVICE_ADMINS" />
     <uses-permission android:name="android.permission.PACKAGE_USAGE_STATS" />
-
-    <!-- USB RELATED STUFFFF-->
 
     <application
         android:allowBackup="true"
@@ -26,37 +30,52 @@
         android:theme="@style/Theme.Usbtesting2"
         tools:targetApi="31">
 
-        <service
-            android:name=".MyForegroundService"
-            android:exported="false"
-            android:foregroundServiceType="connectedDevice" />
+        <!-- Boot Receiver -->
+        <receiver
+            android:name=".BootReceiver"
+            android:enabled="true"
+            android:exported="true"
+            android:directBootAware="true"
+            android:permission="android.permission.RECEIVE_BOOT_COMPLETED">
+            <intent-filter android:priority="999">
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+                <action android:name="android.intent.action.QUICKBOOT_POWERON" />
+                <action android:name="android.intent.action.REBOOT" />
+                <action android:name="com.htc.intent.action.QUICKBOOT_POWERON" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </receiver>
 
+        <!-- Main Activity -->
         <activity
             android:name=".MainActivity"
-            android:exported="true">
+            android:exported="true"
+            android:launchMode="singleTask"
+            android:stateNotNeeded="true"
+            android:excludeFromRecents="true"
+            android:configChanges="orientation|keyboardHidden|screenSize">
 
-
-
-
-
-            <!-- Launcher intent filter for app drawer: make the app lauchable from the app drawer -->
-            <intent-filter>
+            <intent-filter android:priority="999">
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-
-            <!-- USB device attached intent filter, so the system know the app is available when a USB device is attached -->
-            <intent-filter>
-                <action android:name="android.hardware.usb.action.USB_DEVICE_ATTACHED" />
+                <category android:name="android.intent.category.HOME" />
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
 
-            <!-- device_filter.xml determines what USB devices are accepted by the app, rn its setted to all usb devices-->
+            <intent-filter>
+                <action android:name="android.hardware.usb.action.USB_DEVICE_ATTACHED" />
+            </intent-filter>
+
+            <intent-filter>
+                <action android:name="com.example.usbtesting2.USB_PERMISSION" />
+            </intent-filter>
+
             <meta-data
                 android:name="android.hardware.usb.action.USB_DEVICE_ATTACHED"
                 android:resource="@xml/device_filter" />
         </activity>
 
+        <!-- Device Admin Receiver -->
         <receiver
             android:name=".MyDeviceAdminReceiver"
             android:description="@string/app_name"

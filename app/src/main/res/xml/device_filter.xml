@@ -1,4 +1,15 @@
-<resources>
+<?xml version="1.0" encoding="utf-8"?>
+<device-filter xmlns:android="http://schemas.android.com/apk/res/android">
     <!-- Accept all USB devices -->
     <usb-device />
-</resources>
+    
+    <!-- Common USB-to-Serial adapters -->
+    <usb-device vendor-id="1027" product-id="24577" /> <!-- FT232RL -->
+    <usb-device vendor-id="1027" product-id="24596" /> <!-- FT232H -->
+    <usb-device vendor-id="1027" product-id="24592" /> <!-- FT2232H -->
+    <usb-device vendor-id="1027" product-id="24593" /> <!-- FT4232H -->
+    <usb-device vendor-id="1027" product-id="24597" /> <!-- FT230X -->
+    <usb-device vendor-id="9025" /> <!-- CH340 -->
+    <usb-device vendor-id="6790" product-id="29987" /> <!-- PL2303 -->
+    <usb-device vendor-id="4292" /> <!-- CP210x -->
+</device-filter>
